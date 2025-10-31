@@ -1,0 +1,68 @@
+package myMain;
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.io.FileNotFoundException;
+import java.io.DataInput;
+import java.io.File;
+
+	public class MainClass {
+		static Scanner userinput = new Scanner(System.in);
+		public static void main(String[] args) throws FileNotFoundException {
+			String fileName = "C:\\Users\\Vanst\\OneDrive\\Sample.txt";
+			File textFile = new File(fileName);
+			Scanner datainput = new Scanner(textFile);
+			String s;
+			int words = 0;
+			int letters = 0;
+			int sentences = 0;
+			int[] counter = new int[26];
+			
+			while (datainput.hasNextLine()) {
+				s = datainput.nextLine();
+				s = s.trim();
+				if(!s.isEmpty()) {
+
+				
+				System.out.println(s);
+				
+				//Count Sentences
+				sentences += s.split("[.!?]").length;
+				
+				//Count words
+				String[] wordArray = s.split("\\s+");
+				words += wordArray.length;
+				
+				//Count letters
+				for (String word : wordArray) {
+					for (char c : word.toCharArray()) {
+					if (Character.isLetter(c)) {
+						letters++;
+						if (Character.isLowerCase(c)) {
+							counter[c - 'a']++;
+						}else if (Character.isUpperCase(c)) {
+							counter[c - 'A']++;
+						}
+					}
+				}
+			}
+		}
+	}
+				
+			
+	
+		System.out.println("There are " + words + " words in this document.");
+        System.out.println("There are " + letters + " letters in this document.");
+        System.out.println("There are " + sentences + " sentences in this document.");
+        System.out.println("Average letters per word: " + (words == 0 ? 0 : (double) letters / words));
+        System.out.println("Average words per sentence: " + (sentences == 0 ? 0 : (double) words / sentences));
+
+        datainput.close();
+        System.out.println("\nProgram ended ...");
+    }
+}
